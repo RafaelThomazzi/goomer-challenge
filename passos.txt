@@ -1,0 +1,70 @@
+mkdir node-api
+npm init -y
+npm install express
+npm install -D nodemon
+- abrir package.json
+	adicionar "dev": "nodemon arquivo.js"
+	(dentro de "scripts")
+rodar o codigo com npm run dev no terminal
+
+npm install mongoose
+-- acessar mongo db atlas e criar a database
+	mongoose.connect('chave' , {
+ 	   useNewUrlParser: true
+	});
+
+criar src/models/Product.js
+fazer o schema do produto
+importar o schema atraves do require
+(qnd existem mts importa��es de model vc pode usar isso \/)
+
+npm install require-dir
+-- no codigo -- 
+const requireDir = require("require-dir");
+requireDir('./src/models')
+---------------
+
+para permitir acesso de qualquer dominio
+npm install cors
+-- const cors = require("cors");
+app.use(cors());
+
+para fazer upload de foto
+npm install multer
+importar multer dentro da routes.js
+const multer = require('multer');
+const uploadConfig = require('./config/upload');
+const upload = multer(uploadConfig);
+ps: upload config é o arquivo que será criado para armazenar a foto
+routes.post("/products", upload.single('image'), ProductController.store);
+PS: image é o campo da foto
+
+criar pasta uploads
+criar pasta config/upload.js
+conteudo da upload.js
+const multer = require('multer');
+const path = require('path');
+
+module.exports = {
+	storage: new multer.diskStorage({
+		destination: path.resolve(__dirname, '..', '..', 'uploads'),
+		filename: function(req, file, cb){
+			cb(null, file.originalname);
+		}
+	})
+};
+
+no arquivo PostController
+    async store(req, res) {
+		const { campo1, campo2, campo3} = req.body;
+		const {filename: image} = req.file
+
+        const product = await Product.create({
+			campo1,
+			campo2,
+			campo3,
+			image
+		});
+
+        return res.json(product);
+    }

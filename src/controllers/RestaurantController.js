@@ -12,8 +12,20 @@ module.exports = {
         return res.json(restaurants);
     },   
     async store(req, res) {
-        const restaurants = await Restaurant.create(req.body);
+        //console.log(req.file);
+        //return res.json({ ok: true });
+        
+		const { name, adress, openinghours } = req.body;
+		const {filename: image} = req.file;
+
+        const restaurants = await Restaurant.create({
+			name,
+			adress,
+			image,
+			openinghours
+		});
         return res.json(restaurants);
+        
     },
     async update(req, res) {
         const restaurants = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true});
