@@ -15,17 +15,16 @@ module.exports = {
         //console.log(req.file);
         //return res.json({ ok: true });
         
-		const { name, adress, openinghours } = req.body;
-		const {filename: image} = req.file;
-
+        const { name, adress, openinghours } = req.body;
+        const {filename: image} = req.file;
+        
         const restaurants = await Restaurant.create({
 			name,
 			adress,
 			image,
-			openinghours
+            openinghours,         
 		});
         return res.json(restaurants);
-        
     },
     async update(req, res) {
         const restaurants = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true});

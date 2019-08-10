@@ -1,4 +1,4 @@
-mkdir node-api
+﻿mkdir node-api
 npm init -y
 npm install express
 npm install -D nodemon
@@ -68,3 +68,30 @@ no arquivo PostController
 
         return res.json(product);
     }
+
+----------- APENAS PARA GUARDAR A ESTRTURA DO HORARIO DE FUNCIONAMENTO --------------
+    openinghours:{
+       weekend:{
+           opened: {
+                type: Date,
+                required: true,
+           },
+           closed:{
+                type: Date,
+                required: true,
+           }
+       },
+       Weekdays:{
+           opened: {
+                type: Date,
+                required: true,
+
+           },
+           closed:{
+                type: Date,
+                required: true,
+           }
+       }
+    },  
+------------------------------------------------------------------------------------------
+

@@ -11,12 +11,14 @@ const RestaurantSchema = new mongoose.Schema({
     },
     image:{
         type: String,
-        required: true,
     },
     openinghours:{
-        type: String,
-        required: true,
-    },    
+        type:String,
+    },  
+    products:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+    }],       
     CreatedAt: {
         type: Date,
         default: Date.now,
